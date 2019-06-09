@@ -104,7 +104,7 @@ if __name__== "__main__":
 
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('-i', '--input_dir', action='store', dest='input_dir', default='./data/' ,
+    parser.add_argument('-i', '--input_dir', action='store', dest='input_dir', default='./data_hr/' ,
                     help='Path for input images')
                     
     parser.add_argument('-o', '--output_dir', action='store', dest='output_dir', default='./output/' ,

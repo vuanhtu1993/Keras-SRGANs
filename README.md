@@ -85,6 +85,10 @@ You can find more about this implementation in my post : [Single Image Super Res
                > python test.py --input_high_res='./data_hr/' --output_dir='./output/' --model_dir='./model/gen_model3000.h5' --number_of_images=25 --test_type='test_model'
                For more help run:
                > python test.py -h
+               ````python
+               python test.py -ihr='./data_hr/' -o='./program_output/' -m='./model/gen_model3000.h5' -n=3 -t='test_model'
+               ```
+                
                
             2. Test LR images- This option directly take LR images and give resulting HR images.
                Run following command to get HR images from LR images:

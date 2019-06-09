@@ -87,11 +87,11 @@ def load_data(directory, ext):
     return files
 
 
-files = load_data("./data", ".jpg")
+files = load_data("./data_hr", ".jpg")
 x_train = files[:500]
 x_test = files[600:900]
 
-print("data loaded")
+print("data_hr loaded")
 
 
 def hr_images(images):
@@ -148,7 +148,7 @@ x_test_hr = normalize(x_test_hr)
 x_test_lr = lr_images(x_test, 4)
 x_test_lr = normalize(x_test_lr)
 
-print("data processed")
+print("data_hr processed")
 
 def plot_generated_images(epoch,generator, examples=3 , dim=(1, 3), figsize=(15, 5)):
     
