@@ -30,7 +30,8 @@ image_shape = (96, 96, 3)
 
 
 def test_model(input_hig_res, model, number_of_images, output_dir):
-    x_test_lr, x_test_hr = Utils.load_test_data_for_model(input_hig_res, 'jpg', number_of_images)
+    print("-------- start generate processing -------")
+    x_test_lr, x_test_hr = Utils.load_test_data_for_model(input_hig_res, 'jpg', image_shape, number_of_images)
     print('----- Finished pre-process image-----')
     Utils.plot_test_generated_images_for_model(output_dir, model, x_test_hr, x_test_lr)
     print('----- Finished generate image using model from ', output_dir, '-------')
