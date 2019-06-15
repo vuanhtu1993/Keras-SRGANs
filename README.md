@@ -74,6 +74,8 @@ You can find more about this implementation in my post : [Single Image Super Res
         Run below command to train model. Set parameters accordingly.
         > python train.py --input_dir='./data/' --output_dir='./output/' --model_save_dir='./model/' --batch_size=64 --epochs=3000 --number_of_images=1000 --train_test_ratio=0.8
         
+        > python train.py -i='./data/' -o='./output/' -m='./model/' -b=64 -e=2 -n=100 -r=0.8
+        
         All Parameters have default values. For mode help on parameters run:
         > python train.py -h
         
