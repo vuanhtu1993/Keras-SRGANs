@@ -39,22 +39,30 @@ def get_gan_network(discriminator, shape, generator, optimizer, vgg_loss):
 # for more info use $python train.py -h
 def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_images, train_test_ratio):
     
-    x_train_lr, x_train_hr, x_test_lr, x_test_hr = Utils.load_training_data(input_dir, '.jpg', number_of_images, train_test_ratio) 
+    x_train_lr, x_train_hr, x_test_lr, x_test_hr = Utils.load_training_data(input_dir, '.jpg', number_of_images, train_test_ratio)
+
     loss = VGG_LOSS(image_shape)  
     
     batch_count = int(x_train_hr.shape[0] / batch_size)
+
     shape = (image_shape[0]//downscale_factor, image_shape[1]//downscale_factor, image_shape[2])
-    
+
+    # Generator description
     generator = Generator(shape).generator()
+
+    # Discriminator description
     discriminator = Discriminator(image_shape).discriminator()
 
     optimizer = Utils_model.get_optimizer()
+
     generator.compile(loss=loss.vgg_loss, optimizer=optimizer)
+
     discriminator.compile(loss="binary_crossentropy", optimizer=optimizer)
     
     gan = get_gan_network(discriminator, shape, generator, optimizer, loss.vgg_loss)
     
     loss_file = open(model_save_dir + 'losses.txt' , 'w+')
+
     loss_file.close()
 
     for e in range(1, epochs+1):
