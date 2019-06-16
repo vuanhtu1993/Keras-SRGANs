@@ -26,7 +26,7 @@ from Utils_model import VGG_LOSS
 # To fix error Initializing libiomp5.dylib
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
-image_shape = (96, 96, 3)
+image_shape = (384, 384, 3)
 
 
 def test_model(input_hig_res, model, number_of_images, output_dir):

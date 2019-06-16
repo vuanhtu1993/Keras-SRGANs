@@ -82,7 +82,7 @@ def load_data_from_dirs(dirs, ext, image_shape):
             if f.endswith(ext):
                 image = data.imread(os.path.join(d, f))
                 if len(image.shape) > 2:
-                    image = cv2.resize(image, (width*4, height*4), interpolation=cv2.INTER_AREA)
+                    image = cv2.resize(image, (width, height), interpolation=cv2.INTER_AREA)
                     files.append(image)
                     file_names.append(os.path.join(d, f))
                 else:
@@ -97,10 +97,13 @@ def load_data(directory, ext):
     return files
 
 
-def load_training_data(directory, ext, number_of_images=1000, train_test_ratio=0.8):
+def load_training_data(directory, ext, image_shape, number_of_images=1000, train_test_ratio=0.8):
+    print("========= Start loading data ==========")
     number_of_train_images = int(number_of_images * train_test_ratio)
 
-    files = load_data_from_dirs(load_path(directory), ext)
+    print(number_of_train_images)
+
+    files = load_data_from_dirs(load_path(directory), ext, image_shape)
 
     if len(files) < number_of_images:
         print("Number of image files are less then you specified")
@@ -129,6 +132,8 @@ def load_training_data(directory, ext, number_of_images=1000, train_test_ratio=0
 
     x_test_lr = lr_images(x_test, 4)
     x_test_lr = normalize(x_test_lr)
+
+    print("========= End loading data ==========")
 
     return x_train_lr, x_train_hr, x_test_lr, x_test_hr
 

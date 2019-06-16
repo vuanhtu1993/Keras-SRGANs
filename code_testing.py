@@ -7,7 +7,8 @@ from random import sample
 #     print(len(files))
 
 # [Delete files]
-files = os.listdir('./data')
-# output: List
-for file in sample(files, 2):
-    os.remove('./data/' + file)
+# files = os.listdir('./data')
+# # output: List
+# for file in sample(files, 2):
+#     os.remove('./data/' + file)
+

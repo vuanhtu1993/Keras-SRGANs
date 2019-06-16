@@ -14,7 +14,11 @@ from keras.models import Model
 from keras.layers import Input
 from tqdm import tqdm
 import numpy as np
+import os
 import argparse
+
+# To fix error Initializing libiomp5.dylib
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 np.random.seed(10)
 # Better to use downscale factor as 4
@@ -40,14 +44,20 @@ def get_gan_network(discriminator, shape, generator, optimizer, vgg_loss):
 # default values for all parameters are given, if want defferent values you can give via commandline
 # for more info use $python train.py -h
 def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_images, train_test_ratio):
-    x_train_lr, x_train_hr, x_test_lr, x_test_hr = Utils.load_training_data(input_dir, '.jpg', number_of_images,
-                                                                            train_test_ratio)
+    # Loading images
+    x_train_lr, x_train_hr, x_test_lr, x_test_hr = \
+        Utils.load_training_data(input_dir, '.jpg', image_shape, number_of_images, train_test_ratio)
 
+    print('======= Loading VGG_loss ========')
+    # Loading VGG loss
     loss = VGG_LOSS(image_shape)
+    print('====== VGG_LOSS =======', loss)
 
     batch_count = int(x_train_hr.shape[0] / batch_size)
+    print('====== Batch_count =======', batch_count)
 
     shape = (image_shape[0] // downscale_factor, image_shape[1] // downscale_factor, image_shape[2])
+    print('====== Shape =======', shape)
 
     # Generator description
     generator = Generator(shape).generator()
@@ -137,6 +147,19 @@ def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_i
 #     train(values.epochs, values.batch_size, values.input_dir, values.output_dir, values.model_save_dir,
 #           values.number_of_images, values.train_test_ratio)
 
-train(10, 64, './data/', './output/', './model/', 8400, 0.8)
+# Parameter
+param_epochs = 1
+param_batch = 1
+param_input_folder = './data/'
+param_out_folder = './output/'
+param_model_out_folder = './model/'
+param_number_images = 10
+param_train_test_ratio = 0.8
 
-print('running man')
+train(param_epochs,
+      param_batch,
+      param_input_folder,
+      param_out_folder,
+      param_model_out_folder,
+      param_number_images,
+      param_train_test_ratio)
