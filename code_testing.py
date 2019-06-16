@@ -12,3 +12,10 @@ from random import sample
 # for file in sample(files, 2):
 #     os.remove('./data/' + file)
 
+# [Get size(byte) image]
+files = os.listdir('.')
+# Sort image by size
+# files_sorted = sorted(files, key=lambda file_: os.path.getsize('./data_hr/' + file_), reverse=True)
+# # Move 3 largest size to other folder
+# for file in files_sorted:
+#     print(os.path.getsize('./data_hr/' + file))
