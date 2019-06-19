@@ -12,10 +12,21 @@ from random import sample
 # for file in sample(files, 2):
 #     os.remove('./data/' + file)
 
-# [Get size(byte) image]
-files = os.listdir('.')
-# Sort image by size
+# # [Get size(byte) image]
+# files = os.listdir('./data/')
+# # Sort image by size
 # files_sorted = sorted(files, key=lambda file_: os.path.getsize('./data_hr/' + file_), reverse=True)
+
+#
+
 # # Move 3 largest size to other folder
 # for file in files_sorted:
 #     print(os.path.getsize('./data_hr/' + file))
+
+import os
+
+dir = os.fsencode('VN-celeb')
+for d in dir:
+    os.chdir(d)
+
+    dir2 = os.fsencode()
