@@ -35,7 +35,7 @@ os.chdir('../')
 print('>>>>>' + os.path.dirname(os.path.realpath(__file__)))
 
 # move file to correct folder
-OUT_DIR = 'out'
+OUT_DIR = 'VN_dataset'
 if not os.path.exists(OUT_DIR):
     os.makedirs(OUT_DIR)
 

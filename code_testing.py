@@ -1,5 +1,5 @@
 # Code testing: where to learn python and test code
-import os
+import os, os.path
 from random import sample
 
 # [File counting]
@@ -23,10 +23,12 @@ from random import sample
 # for file in files_sorted:
 #     print(os.path.getsize('./data_hr/' + file))
 
-import os
+# dir = os.fsencode('VN-celeb')
+# for d in dir:
+#     os.chdir(d)
+#
+#     dir2 = os.fsencode()
 
-dir = os.fsencode('VN-celeb')
-for d in dir:
-    os.chdir(d)
+list = os.listdir('./VN_dataset/')
 
-    dir2 = os.fsencode()
+print(len(list))

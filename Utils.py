@@ -107,6 +107,8 @@ def load_training_data(directory, ext, image_shape, number_of_images=1000, train
 
     files = load_data_from_dirs(load_path(directory), ext, image_shape)
 
+    print(len(files))
+
     if len(files) < number_of_images:
         print("Number of image files are less then you specified")
         print("Please reduce number of images to %d" % len(files))

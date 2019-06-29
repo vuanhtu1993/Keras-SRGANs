@@ -43,10 +43,10 @@ def get_gan_network(discriminator, shape, generator, optimizer, vgg_loss):
 
 # default values for all parameters are given, if want defferent values you can give via commandline
 # for more info use $python train.py -h
-def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_images, train_test_ratio):
+def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_images, train_test_ratio, image_extension):
     # Loading images
     x_train_lr, x_train_hr, x_test_lr, x_test_hr = \
-        Utils.load_training_data(input_dir, '.jpg', image_shape, number_of_images, train_test_ratio)
+        Utils.load_training_data(input_dir, image_extension, image_shape, number_of_images, train_test_ratio)
 
     print('======= Loading VGG_loss ========')
     # Loading VGG loss
@@ -150,11 +150,12 @@ def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_i
 # Parameter
 param_epochs = 1
 param_batch = 1
-param_input_folder = './data/'
+param_input_folder = './VN_dataset/'
 param_out_folder = './output/'
 param_model_out_folder = './model/'
 param_number_images = 10
 param_train_test_ratio = 0.8
+param_image_extension = '.png'
 
 train(param_epochs,
       param_batch,
@@ -162,4 +163,5 @@ train(param_epochs,
       param_out_folder,
       param_model_out_folder,
       param_number_images,
-      param_train_test_ratio)
+      param_train_test_ratio,
+      param_image_extension)
