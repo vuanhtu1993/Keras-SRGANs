@@ -42,6 +42,7 @@ def hr_images(images):
 
 
 # Takes list of images and provide LR images in form of numpy array
+# Using imresize to down sampling images
 def lr_images(images_real, downscale):
     images = []
     for img in range(len(images_real)):
@@ -52,6 +53,7 @@ def lr_images(images_real, downscale):
     return images_lr
 
 
+#  normalize images to range [-1, 1]
 def normalize(input_data):
     return (input_data.astype(np.float32) - 127.5) / 127.5
 
