@@ -44,6 +44,8 @@ You can find more about this implementation in my post : [Single Image Super Res
     keras 2.2.4
     numpy 1.10.4
     matplotlib, skimage, scipy
+    conda install tensorflow-gpu
+    conda install tensorflow
     
     For training: Good GPU, I trained my model on NVIDIA Tesla P100
     
