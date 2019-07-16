@@ -21,10 +21,10 @@ import matplotlib.pyplot as plt
 
 plt.switch_backend('agg')
 
-
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
+
 
 # Subpixel Conv will upsample from (h, w, c) to (h/r, w/r, c/r^2)
 def SubpixelConv2D(input_shape, scale=4):
@@ -146,10 +146,11 @@ def load_training_data(directory, ext, image_shape, number_of_images=1000, train
     return x_train_lr, x_train_hr, x_test_lr, x_test_hr
 
 
+# Load HR images
 def load_test_data_for_model(directory, ext, image_shape, number_of_images=100):
     files = load_data_from_dirs(load_path(directory), ext, image_shape)
 
-    print("Load image from ", directory, "successfully")
+    print("Load HR image from ", directory, "successfully")
 
     for file in files:
         print(file.shape)
@@ -168,8 +169,14 @@ def load_test_data_for_model(directory, ext, image_shape, number_of_images=100):
     return x_test_lr, x_test_hr
 
 
+# Load LR images
 def load_test_data(directory, ext, image_shape, number_of_images=100):
     files = load_data_from_dirs(load_path(directory), ext, image_shape)
+
+    print("Load LR image from ", directory, "successfully")
+
+    for file in files:
+        print(file.shape)
 
     if len(files) < number_of_images:
         print("Number of image files are less then you specified")
