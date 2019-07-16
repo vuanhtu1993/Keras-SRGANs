@@ -24,7 +24,7 @@ np.random.seed(10)
 # Better to use downscale factor as 4
 downscale_factor = 4
 # Remember to change image shape if you are having different size of images
-image_shape = (384, 384, 3)
+image_shape = (64, 64, 3)
 
 
 # Combined network
@@ -150,10 +150,10 @@ def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_i
 # Parameter
 param_epochs = 1
 param_batch = 1
-param_input_folder = './VN_dataset/'
+param_input_folder = './VN_dataset/resize64x64/'
 param_out_folder = './output/'
 param_model_out_folder = './model/'
-param_number_images = 10
+param_number_images = 1000
 param_train_test_ratio = 0.8
 param_image_extension = '.png'
 
