@@ -18,7 +18,7 @@ import os
 import argparse
 
 # To fix error Initializing libiomp5.dylib
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
+# os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 np.random.seed(10)
 # Better to use downscale factor as 4
@@ -149,8 +149,8 @@ def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_i
 
 # Parameter
 param_epochs = 1
-param_batch = 1
-param_input_folder = './VN_dataset/resize64x64/'
+param_batch = 10
+param_input_folder = './VN_dataset/'
 param_out_folder = './output/'
 param_model_out_folder = './model/'
 param_number_images = 1000

@@ -29,6 +29,17 @@ from random import sample
 #
 #     dir2 = os.fsencode()
 
-list = os.listdir('./VN_dataset/')
+# list = os.listdir('./VN_dataset/')
+#
+# print(len(list))
 
-print(len(list))
+import tensorflow as tf
+from tensorflow.python.client import device_lib
+
+
+print(device_lib.list_local_devices())
+print("GPU Available: ", tf.test.is_gpu_available())
+
+print("Device name:", tf.test.gpu_device_name())
+
+print(tf.__version__)
