@@ -223,7 +223,7 @@ def plot_generated_images(output_dir, epoch, generator, x_test_hr, x_test_lr, di
 
 # Plots and save generated images(in form LR, SR, HR) from model to test the model 
 # Save output for all images given for testing  
-def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_test_lr, dim=(1, 3), figsize=(15, 5)):
+def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_test_lr, dim=(1, 5), figsize=(25, 5)):
     examples = x_test_hr.shape[0]
     image_batch_hr = denormalize(x_test_hr)
     image_batch_lr = x_test_lr
@@ -235,15 +235,28 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         plt.figure(figsize=figsize)
 
         plt.subplot(dim[0], dim[1], 1)
+        plt.gca().set_title('Nearest neighbor')
         plt.imshow(image_batch_lr[index], interpolation='nearest')
         plt.axis('off')
 
         plt.subplot(dim[0], dim[1], 2)
-        plt.imshow(generated_image[index], interpolation='nearest')
+        plt.gca().set_title('Bilinear')
+        plt.imshow(image_batch_lr[index], interpolation='bilinear')
         plt.axis('off')
 
         plt.subplot(dim[0], dim[1], 3)
-        plt.imshow(image_batch_hr[index], interpolation='nearest')
+        plt.gca().set_title('Bicubic')
+        plt.imshow(image_batch_lr[index], interpolation='bicubic')
+        plt.axis('off')
+
+        plt.subplot(dim[0], dim[1], 4)
+        plt.gca().set_title('SRGANs')
+        plt.imshow(generated_image[index], interpolation='none')
+        plt.axis('off')
+
+        plt.subplot(dim[0], dim[1], 5)
+        plt.gca().set_title('Original')
+        plt.imshow(image_batch_hr[index], interpolation='none')
         plt.axis('off')
 
         plt.tight_layout()
