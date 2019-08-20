@@ -57,7 +57,7 @@ if __name__ == "__main__":
     # Load loss define image shape
     loss = VGG_LOSS(image_shape)
 
-    param_model_dir = './model/gen_model3000.h5'
+    param_model_dir = './model/gen_model100_200.h5'
     param_input_high_res = './data_hr/'
     param_input_low_res = './data_lr/'
     param_number_of_images = 5
