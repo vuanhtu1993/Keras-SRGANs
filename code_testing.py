@@ -33,13 +33,16 @@ from random import sample
 #
 # print(len(list))
 
-import tensorflow as tf
-from tensorflow.python.client import device_lib
+a = [2, 1, 3, 5, 3, 2]
 
+def firstDuplicate(a):
+    duplicate_list = []
+    for i in range(len(a) - 1):
+        for j in range(i + 1, len(a)):
+            if a[i] == a[j]:
+                duplicate_list.append(j)
+    if len(duplicate_list) == 0:
+        return -1
+    return a[min(duplicate_list)]
 
-print(device_lib.list_local_devices())
-print("GPU Available: ", tf.test.is_gpu_available())
-
-print("Device name:", tf.test.gpu_device_name())
-
-print(tf.__version__)
+firstDuplicate(a)
