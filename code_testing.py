@@ -1,7 +1,8 @@
 # Code testing: where to learn python and test code
 import os, os.path
 from random import sample
-
+import matplotlib.pyplot as plt
+import cv2
 # [File counting]
 # for root, dirs, files in os.walk("./data", topdown=False):
 #     print(len(files))
@@ -33,13 +34,32 @@ from random import sample
 #
 # print(len(list))
 
-import tensorflow as tf
-from tensorflow.python.client import device_lib
+# Check tensor flow GPU
+# import tensorflow as tf
+# from tensorflow.python.client import device_lib
+#
+#
+# print(device_lib.list_local_devices())
+# print("GPU Available: ", tf.test.is_gpu_available())
+#
+# print("Device name:", tf.test.gpu_device_name())
+#
+# print(tf.__version__)
 
+img = cv2.imread('./data_lr/lena_low.png')
 
-print(device_lib.list_local_devices())
-print("GPU Available: ", tf.test.is_gpu_available())
+plt.figure(figsize=(8, 4))
 
-print("Device name:", tf.test.gpu_device_name())
+plt.subplot(1, 2, 1)
+plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+plt.axis('off')
 
-print(tf.__version__)
+# plt.subplot(1, 1, 1)
+# plt.imshow(gray, interpolation='nearest')
+# plt.axis('off')
+
+plt.subplot(1, 2, 2)
+plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), interpolation='bicubic')
+plt.axis('off')
+
+plt.show()
