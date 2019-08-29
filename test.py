@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-t', '--test_type', action='store', dest='test_type', default='test_lr_images',
+    parser.add_argument('-t', '--test_type', action='store', dest='test_type', default='test_model',
                         help='Option to test model output or to test low resolution image')
 
     values = parser.parse_args()
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     param_model_dir = './model/gen_model100_200.h5'
     param_input_high_res = './data_hr/'
     param_input_low_res = './data_lr/'
-    param_number_of_images = 5
+    param_number_of_images = 2
     param_output_dir = './output/'
     param_extension = "png"
 

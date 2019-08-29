@@ -17,6 +17,8 @@ import os
 import sys
 import cv2
 
+import measurement as ms
+
 import matplotlib.pyplot as plt
 
 plt.switch_backend('agg')
@@ -223,7 +225,7 @@ def plot_generated_images(output_dir, epoch, generator, x_test_hr, x_test_lr, di
 
 # Plots and save generated images(in form LR, SR, HR) from model to test the model 
 # Save output for all images given for testing  
-def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_test_lr, dim=(1, 5), figsize=(25, 5)):
+def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_test_lr, dim=(1, 5), figsize=(50, 8)):
     examples = x_test_hr.shape[0]
     image_batch_hr = denormalize(x_test_hr)
     image_batch_lr = x_test_lr
@@ -231,26 +233,42 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
     generated_image = denormalize(gen_img)
     image_batch_lr = denormalize(image_batch_lr)
 
+    # Label measurement
+    label = 'MSE: %2.f, SSIM: %.2f'
+
     for index in range(examples):
         plt.figure(figsize=figsize)
 
         plt.subplot(dim[0], dim[1], 1)
-        plt.gca().set_title('Nearest neighbor')
-        plt.imshow(image_batch_lr[index], interpolation='nearest')
+        nearest_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
+        m = ms.PSNR(nearest_img, image_batch_hr[index])
+        s = ms.SSIM(nearest_img, image_batch_hr[index])
+        plt.gca().set_title('Nearest neighbor '+ label % (m, s), fontsize=25)
+        plt.imshow(nearest_img, interpolation='none')
         plt.axis('off')
 
-        plt.subplot(dim[0], dim[1], 2)
-        plt.gca().set_title('Bilinear')
-        plt.imshow(image_batch_lr[index], interpolation='bilinear')
+        subplot2 = plt.subplot(dim[0], dim[1], 2)
+        bilinear_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_LINEAR)
+        m = ms.PSNR(bilinear_img, image_batch_hr[index])
+        s = ms.SSIM(bilinear_img, image_batch_hr[index])
+        # plt.gca().set_title('Bilinear')
+        plt.gca().set_title('Bilinear ' + label % (m, s), fontsize=25)
+        plt.imshow(bilinear_img, interpolation='none')
         plt.axis('off')
 
         plt.subplot(dim[0], dim[1], 3)
-        plt.gca().set_title('Bicubic')
-        plt.imshow(image_batch_lr[index], interpolation='bicubic')
+        bicubic_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_CUBIC)
+        m = ms.PSNR(bicubic_img, image_batch_hr[index])
+        s = ms.SSIM(bicubic_img, image_batch_hr[index])
+        # plt.gca().set_title('Bilinear')
+        plt.gca().set_title('Bicubic ' + label % (m, s), fontsize=25)
+        plt.imshow(bicubic_img, interpolation='none')
         plt.axis('off')
 
         plt.subplot(dim[0], dim[1], 4)
-        plt.gca().set_title('SRGANs')
+        m = ms.PSNR(generated_image[index], image_batch_hr[index])
+        s = ms.SSIM(generated_image[index], image_batch_hr[index])
+        plt.gca().set_title('SRGANs ' + label % (m, s), fontsize=25)
         plt.imshow(generated_image[index], interpolation='none')
         plt.axis('off')
 
