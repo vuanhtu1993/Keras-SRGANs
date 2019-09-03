@@ -60,7 +60,7 @@ if __name__ == "__main__":
     param_model_dir = './model/gen_model100_200.h5'
     param_input_high_res = './data_hr/'
     param_input_low_res = './data_lr/'
-    param_number_of_images = 1
+    param_number_of_images = 10
     param_output_dir = './output/'
     param_extension = "png"
 

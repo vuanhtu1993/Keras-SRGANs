@@ -244,8 +244,8 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         m = ms.PSNR(nearest_img, image_batch_hr[index])
         s = ms.SSIM(nearest_img, image_batch_hr[index])
         plt.gca().set_title('Nearest neighbor '+ label % (m, s), fontsize=25)
-        cv2.imwrite('SRGAN_output/NN_image_only_%d.png' % index,
-                    cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
+        # cv2.imwrite('SRGAN_output/NN_image_only_%d.png' % index,
+        #             cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
         plt.imshow(nearest_img, interpolation='none')
         plt.axis('off')
 
@@ -254,8 +254,8 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         m = ms.PSNR(bilinear_img, image_batch_hr[index])
         s = ms.SSIM(bilinear_img, image_batch_hr[index])
         plt.gca().set_title('Bilinear ' + label % (m, s), fontsize=25)
-        cv2.imwrite('SRGAN_output/BL_image_only_%d.png' % index,
-                    cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
+        # cv2.imwrite('SRGAN_output/BL_image_only_%d.png' % index,
+        #             cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
         plt.imshow(bilinear_img, interpolation='none')
         plt.axis('off')
 
@@ -264,8 +264,8 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         m = ms.PSNR(bicubic_img, image_batch_hr[index])
         s = ms.SSIM(bicubic_img, image_batch_hr[index])
         plt.gca().set_title('Bicubic ' + label % (m, s), fontsize=25)
-        cv2.imwrite('SRGAN_output/Bicubic_image_only_%d.png' % index,
-                    cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
+        # cv2.imwrite('SRGAN_output/Bicubic_image_only_%d.png' % index,
+        #             cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
         plt.imshow(bicubic_img, interpolation='none')
         plt.axis('off')
 
