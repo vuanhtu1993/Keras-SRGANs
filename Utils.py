@@ -244,15 +244,18 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         m = ms.PSNR(nearest_img, image_batch_hr[index])
         s = ms.SSIM(nearest_img, image_batch_hr[index])
         plt.gca().set_title('Nearest neighbor '+ label % (m, s), fontsize=25)
+        cv2.imwrite('SRGAN_output/NN_image_only_%d.png' % index,
+                    cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
         plt.imshow(nearest_img, interpolation='none')
         plt.axis('off')
 
-        subplot2 = plt.subplot(dim[0], dim[1], 2)
+        plt.subplot(dim[0], dim[1], 2)
         bilinear_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_LINEAR)
         m = ms.PSNR(bilinear_img, image_batch_hr[index])
         s = ms.SSIM(bilinear_img, image_batch_hr[index])
-        # plt.gca().set_title('Bilinear')
         plt.gca().set_title('Bilinear ' + label % (m, s), fontsize=25)
+        cv2.imwrite('SRGAN_output/BL_image_only_%d.png' % index,
+                    cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
         plt.imshow(bilinear_img, interpolation='none')
         plt.axis('off')
 
@@ -260,8 +263,9 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         bicubic_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_CUBIC)
         m = ms.PSNR(bicubic_img, image_batch_hr[index])
         s = ms.SSIM(bicubic_img, image_batch_hr[index])
-        # plt.gca().set_title('Bilinear')
         plt.gca().set_title('Bicubic ' + label % (m, s), fontsize=25)
+        cv2.imwrite('SRGAN_output/Bicubic_image_only_%d.png' % index,
+                    cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
         plt.imshow(bicubic_img, interpolation='none')
         plt.axis('off')
 
@@ -270,10 +274,11 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         s = ms.SSIM(generated_image[index], image_batch_hr[index])
         plt.gca().set_title('SRGANs ' + label % (m, s), fontsize=25)
         plt.imshow(generated_image[index], interpolation='none')
+        cv2.imwrite('SRGAN_output/generated_image_only_%d.png' % index, cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
         plt.axis('off')
 
         plt.subplot(dim[0], dim[1], 5)
-        plt.gca().set_title('Original')
+        plt.gca().set_title('Original', fontsize=25)
         plt.imshow(image_batch_hr[index], interpolation='none')
         plt.axis('off')
 
