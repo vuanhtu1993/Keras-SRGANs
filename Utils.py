@@ -99,6 +99,25 @@ def load_data_from_dirs(dirs, ext, image_shape):
                 count = count + 1
     return files
 
+def load_data_from_dirs_for_LRTest(dirs, ext, image_shape):
+    files = []
+    file_names = []
+    count = 0
+    (width, height, n) = image_shape
+    for d in dirs:
+        for f in os.listdir(d):
+            if f.endswith(ext):
+                image = data.imread(os.path.join(d, f))
+                if len(image.shape) > 2:
+                    image = cv2.resize(image, (int(width/4), int(height/4)), interpolation=cv2.INTER_AREA)
+                    files.append(image)
+                    file_names.append(os.path.join(d, f))
+                else:
+                    file_name = os.path.join(d, f)
+                    print('Image', file_name, 'is not 3 dimension')
+                count = count + 1
+    return files
+
 
 def load_data(directory, ext):
     files = load_data_from_dirs(load_path(directory), ext)
@@ -173,7 +192,7 @@ def load_test_data_for_model(directory, ext, image_shape, number_of_images=100):
 
 # Load LR images
 def load_test_data(directory, ext, image_shape, number_of_images=100):
-    files = load_data_from_dirs(load_path(directory), ext, image_shape)
+    files = load_data_from_dirs_for_LRTest(load_path(directory), ext, image_shape)
 
     print("Load LR image from ", directory, "successfully")
 
@@ -186,7 +205,10 @@ def load_test_data(directory, ext, image_shape, number_of_images=100):
         sys.exit()
 
     x_test_lr = lr_images(files, 4)
-    x_test_lr = normalize(x_test_lr)
+    # Show dimention of LR images
+    for file in x_test_lr:
+        print(file.shape)
+    x_test_lr = normalize(files)
 
     return x_test_lr
 
@@ -245,7 +267,7 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         s = ms.SSIM(nearest_img, image_batch_hr[index])
         plt.gca().set_title('Nearest neighbor '+ label % (m, s), fontsize=25)
         # cv2.imwrite('SRGAN_output/NN_image_only_%d.png' % index,
-        #             cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
+        #             cv2.cvtColor(nearest_img, cv2.COLOR_BGR2RGB))
         plt.imshow(nearest_img, interpolation='none')
         plt.axis('off')
 
@@ -255,7 +277,7 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         s = ms.SSIM(bilinear_img, image_batch_hr[index])
         plt.gca().set_title('Bilinear ' + label % (m, s), fontsize=25)
         # cv2.imwrite('SRGAN_output/BL_image_only_%d.png' % index,
-        #             cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
+        #             cv2.cvtColor(bilinear_img, cv2.COLOR_BGR2RGB))
         plt.imshow(bilinear_img, interpolation='none')
         plt.axis('off')
 
@@ -265,7 +287,7 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
         s = ms.SSIM(bicubic_img, image_batch_hr[index])
         plt.gca().set_title('Bicubic ' + label % (m, s), fontsize=25)
         # cv2.imwrite('SRGAN_output/Bicubic_image_only_%d.png' % index,
-        #             cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
+        #             cv2.cvtColor(bicubic_img, cv2.COLOR_BGR2RGB))
         plt.imshow(bicubic_img, interpolation='none')
         plt.axis('off')
 
