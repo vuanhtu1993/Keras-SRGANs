@@ -318,7 +318,7 @@ def plot_test_generated_images(output_dir, generator, x_test_lr, figsize=(5, 5))
     for index in range(examples):
         # plt.figure(figsize=figsize)
 
-        nearest_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
+        nearest_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_CUBIC)
         cv2.imwrite('output/NN_image_only_%d.png' % index,
                     cv2.cvtColor(nearest_img, cv2.COLOR_BGR2RGB))
 
