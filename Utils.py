@@ -254,7 +254,7 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
     image_batch_lr = denormalize(image_batch_lr)
 
     # Label measurement
-    label = 'MSE: %2.f, SSIM: %.2f'
+    label = 'PSNR: %2.f, SSIM: %.2f'
 
     for index in range(examples):
         plt.figure(figsize=figsize)
