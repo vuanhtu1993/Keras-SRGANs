@@ -311,17 +311,24 @@ def plot_test_generated_images_for_model(output_dir, generator, x_test_hr, x_tes
 # Takes LR images and save respective HR images
 def plot_test_generated_images(output_dir, generator, x_test_lr, figsize=(5, 5)):
     examples = x_test_lr.shape[0]
-    # image_batch_lr = denormalize(x_test_lr)
+    image_batch_lr = denormalize(x_test_lr)
     gen_img = generator.predict(x_test_lr)
     generated_image = denormalize(gen_img)
 
     for index in range(examples):
         # plt.figure(figsize=figsize)
 
-        plt.imshow(generated_image[index], interpolation='nearest')
-        plt.axis('off')
+        nearest_img = cv2.resize(image_batch_lr[index], None, fx=4, fy=4, interpolation=cv2.INTER_NEAREST)
+        cv2.imwrite('output/NN_image_only_%d.png' % index,
+                    cv2.cvtColor(nearest_img, cv2.COLOR_BGR2RGB))
 
-        plt.tight_layout()
-        plt.savefig(output_dir + 'high_res_result_image_%d.png' % index)
+        cv2.imwrite('output/high_res_result_image_%d.png' % index,
+                    cv2.cvtColor(generated_image[index], cv2.COLOR_BGR2RGB))
+
+        # plt.imshow(generated_image[index], interpolation='nearest')
+        # plt.axis('off')
+
+        # plt.tight_layout()
+        # plt.savefig(output_dir + 'high_res_result_image_%d.png' % index)
 
         # plt.show()
